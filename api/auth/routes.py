@@ -1,4 +1,5 @@
 from sqlalchemy.exc import IntegrityError
+from passlib.hash import sha256_crypt
 from flask import request
 
 from api.models import Users
@@ -18,7 +19,9 @@ def register():
             'error': 'Not all data was given.'
         }
 
-    user = Users(username=username, password=password, email=email)
+    hashed_password = sha256_crypt.hash(password)
+
+    user = Users(username=username, password=hashed_password, email=email)
     db.session.add(user)
     try:
         db.session.commit()
