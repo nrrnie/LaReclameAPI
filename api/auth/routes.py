@@ -41,3 +41,27 @@ def register():
     return {
         'status': 'ok'
     }
+
+
+@auth.route('/login', methods=['POST'])
+def login():
+    username = request.form.get('username')
+    password = request.form.get('password')
+
+    if None in [username, password]:
+        return {
+            'status': 'error',
+            'error': 'Not all data was given.'
+        }
+
+    user = Users.query.filter_by(username=username).first()
+
+    if user is None or not sha256_crypt.verify(password, user.password):
+        return {
+            'status': 'error',
+            'error': 'Username or password is incorrect.'
+        }
+
+    return {
+        'status': 'ok'
+    }
