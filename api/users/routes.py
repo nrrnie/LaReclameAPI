@@ -30,3 +30,18 @@ def user_by_username(user_name: str):
 		'status': 'ok',
 		'user': user.get_json()
 	}
+
+@users.route('/user_by_email/<user_email>', methods=['POST'])
+def user_by_email(user_email: str):
+	user = Users.query.filter_by(email=user_email).first()
+
+	if user is None:
+		return {
+			'status': 'error',
+			'error': 'User with such email is not found.'
+		}
+
+	return {
+		'status': 'ok',
+		'user': user.get_json()
+	}
