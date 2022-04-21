@@ -8,3 +8,11 @@ class Users(db.Model):
     password = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(255), nullable=False, unique=True)
     registered = db.Column(db.DATETIME, nullable=False, default=datetime.now)
+
+    def get_json(self):
+        return {
+            'id': self.id,
+            'username': self.username,
+            'email': self.email,
+            'registered': self.registered
+        }
