@@ -4,7 +4,7 @@ from api.items import items
 from api.models import Items
 from api import db
 
-@items.route('/create', methods=['POST'])
+@items.route('/add/item', methods=['POST'])
 def create_item():
 	username = request.form.get('username')
 	title = request.form.get('title')
@@ -38,6 +38,29 @@ def item_by_id(item_id: int):
 		'status': 'ok',
 		'item': item.get_json()
 	}
+
+@items.route('/item_by_username/<username>', methods=['POST'])
+def item_by_username(item_username: str):
+	itemList = Items.query.filter(author_username=item_username).all()
+
+	if itemList is None:
+		return {
+			'status': 'error',
+			'error': 'Items with such author username are not found.'
+		}
+
+	items = {}
+	cnt = 0
+
+	for i in itemList:
+		items[cnt] = i.get_json()
+		cnt += 1
+
+	return {
+		'status': 'ok',
+		'items': items
+	}
+
 
 @items.route('/item_by_title/<item_title>', methods=['POST'])
 def item_by_title(item_title: str):
