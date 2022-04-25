@@ -15,6 +15,8 @@ def create_app():
     app.register_blueprint(auth, url_prefix='/auth')
     from api.users import users
     app.register_blueprint(users, url_prefix='/users')
+    from api.items import items
+    app.register_blueprint(items, url_prefix='/items')
 
     with app.app_context():
         db.create_all()
