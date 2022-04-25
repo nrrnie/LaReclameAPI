@@ -16,3 +16,21 @@ class Users(db.Model):
             'email': self.email,
             'registered': self.registered
         }
+
+class Items(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    author_username = db.Column(db.String(255), nullable=False)
+    created = db.Column(db.DATETIME, nullable=False, default=datetime.now)
+    title = db.Column(db.String(255), nullable=False)
+    body = db.Column(db.String(255), nullable=False)
+    is_active = db.Column(db.Boolean, nullable=False, default=True)
+
+    def get_json(self):
+        return {
+            'id': self.id,
+            'author': self.author_username,
+            'created': self.created, 
+            'title': self.title,
+            'body': self.body,
+            'is_active': self.is_active
+        }
