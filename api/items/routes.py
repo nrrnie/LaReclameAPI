@@ -39,9 +39,9 @@ def item_by_id(item_id: int):
 		'item': item.get_json()
 	}
 
-@items.route('/item_by_username/<username>', methods=['POST'])
+@items.route('/item_by_username/<item_username>', methods=['POST'])
 def item_by_username(item_username: str):
-	itemList = Items.query.filter(author_username=item_username).all()
+	itemList = Items.query.filter_by(author_username=item_username).all()
 
 	if itemList is None:
 		return {
