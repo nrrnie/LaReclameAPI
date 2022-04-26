@@ -49,12 +49,7 @@ def item_by_username(item_username: str):
 			'error': 'Items with such author username are not found.'
 		}
 
-	items = {}
-	cnt = 0
-
-	for i in itemList:
-		items[cnt] = i.get_json()
-		cnt += 1
+	items = [item.get_json() for item in itemList]
 
 	return {
 		'status': 'ok',
