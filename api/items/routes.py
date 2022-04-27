@@ -39,7 +39,7 @@ def item_by_id(item_id: int):
 		'item': item.get_json()
 	}
 
-@items.route('/item_by_username/<item_username>', methods=['POST'])
+@items.route('/items_by_username/<item_username>', methods=['POST'])
 def items_by_username(item_username: str):
 	itemList = Items.query.filter_by(author_username=item_username).all()
 
@@ -67,12 +67,7 @@ def items_by_title(item_title: str):
 			'error': 'Items with such title are not found.'
 		}
 
-	items = {}
-	cnt = 0
-
-	for i in itemList:
-		items[cnt] = i.get_json()
-		cnt += 1
+	items = [item.get_json() for item in itemList]
 
 	return {
 		'status': 'ok',
@@ -89,12 +84,7 @@ def items_by_status(item_status: bool):
 			'error': 'Items with such status are not found.'
 		}
 
-	items = {}
-	cnt = 0
-
-	for i in itemList:
-		items[cnt] = i.get_json()
-		cnt += 1
+	items = [item.get_json() for item in itemList]
 
 	return {
 		'status': 'ok',
