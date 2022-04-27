@@ -40,7 +40,7 @@ def item_by_id(item_id: int):
 	}
 
 @items.route('/item_by_username/<item_username>', methods=['POST'])
-def item_by_username(item_username: str):
+def items_by_username(item_username: str):
 	itemList = Items.query.filter_by(author_username=item_username).all()
 
 	if itemList is None:
@@ -62,8 +62,8 @@ def item_by_username(item_username: str):
 	}
 
 
-@items.route('/item_by_title/<item_title>', methods=['POST'])
-def item_by_title(item_title: str):
+@items.route('/items_by_title/<item_title>', methods=['POST'])
+def items_by_title(item_title: str):
 	itemList = Items.query.filter(Items.title.like('%' + item_title + '%')).all()
 
 	if itemList is None:
@@ -84,8 +84,8 @@ def item_by_title(item_title: str):
 		'items': items
 	}
 
-@items.route('/item_by_status/<item_status>', methods=['POST'])
-def item_by_status(item_status: bool):
+@items.route('/items_by_status/<item_status>', methods=['POST'])
+def items_by_status(item_status: bool):
 	itemList = Items.query.filter_by(is_active=item_status).all()
 
 	if itemList is None:
