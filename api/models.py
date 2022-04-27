@@ -1,4 +1,5 @@
 from api import db
+from flask import send_file
 from datetime import datetime
 
 
@@ -32,5 +33,17 @@ class Items(db.Model):
             'created': self.created, 
             'title': self.title,
             'body': self.body,
-            'is_active': self.is_active
+            'is_active': self.is_active,
+            'images': []
+        }
+
+    def get_json_with_images(self):
+        return {
+            'id': self.id,
+            'author': self.author_username,
+            'created': self.created, 
+            'title': self.title,
+            'body': self.body,
+            'is_active': self.is_active,
+            
         }
